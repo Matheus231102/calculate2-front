@@ -46,8 +46,7 @@ export class LoginPageComponent {
 
         if (jwtToken != null) {
           this.localStorageService.setUserToken(jwtToken)
-          this.router.navigate(["/home"]);
-          // this.routerPages.toHome()
+          this.routerPages.toHome()
         }
 
         //tratamento exceções
