@@ -1,1 +1,37 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap');
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  height: 100vh;
+  font-family: "Josefin Sans", sans-serif;
+  font-optical-sizing: auto;
+}
+
+:root {
+  --rich-black: #0d1b2aff;
+  --oxford-blue: #1b263bff;
+  --yinmn-blue: #415a77ff;
+  --silver-lake-blue: #778da9ff;
+  --platinum: #e0e1ddff;
+  --safety-orange: #ff7b00ff;
+  --dark-orange-web: #ff8800ff;
+  --princeton-orange: #ff9500ff;
+  --orange-peel: #ffa200ff;
+  --orange-web: #ffaa00ff;
+  --selective-yellow: #ffb700ff;
+  --mikado-yellow: #ffc300ff;
+  --jonquil: #ffd000ff;
+  --school-bus-yellow: #ffdd00ff;
+  --canary: #ffea00ff;
+  --sandy-brown: #fb9649ff;
+  --sandy-brown-2: #ffb57dff;
+  --champagne-pink: #f8d9c6ff;
+  --tropical-indigo: #b29ef8ff;
+  --medium-slate-blue: #9d53ffff;
+  --basic-white: #f1f1f1
+}
