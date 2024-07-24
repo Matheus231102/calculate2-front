@@ -1,0 +1,48 @@
+.sidebar {
+  position: absolute;
+  min-width: 230px;
+  max-width: 230px;
+  background-color: #3663b2;
+}
+
+.sidebar-open {
+  left: 0;
+  transition: left 0.2s ease-in-out;
+}
+
+.sidebar-closed {
+  left: -196px;
+  transition: left 0.2s ease-in-out;
+}
+
+.sidebar-content-hidden {
+  visibility: hidden;
+}
+
+.sidebar-content-visible {
+  visibility: visible;
+}
+
+.sidebar-header {
+  position: relative;
+}
+
+.sidebar-open-close-icon {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+}
+
+.link {
+  text-decoration: none;
+  color: var(--basic-white);
+}
+
+.sidebar-button {
+  background-color: transparent !important;
+  border: none;
+}
+
+.sidebar-button:hover {
+  background-color: rgba(46, 80, 144, 0.4) !important;
+}

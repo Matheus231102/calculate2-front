@@ -1,0 +1,25 @@
+.main-content {
+  height: 100%;
+}
+
+.main-form {
+  background-color: var(--platinum-light);
+}
+
+.content {
+  min-height: 100%;
+  width: 100%;
+}
+
+.submit-button {
+  width: 100% !important;
+  border: none;
+}
+
+.bg-blue {
+  background-color: var(--yinmn-blue) !important;
+}
+
+.bg-default-blue-hover:hover {
+  background-color: var(--yinmn-blue-hover) !important;
+}

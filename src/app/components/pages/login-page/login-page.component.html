@@ -1,0 +1,28 @@
+<app-base-page>
+  <div class="main-content d-flex flex-row">
+
+    <div class="content d-flex justify-content-center align-items-center">
+      <form class="main-form border-end rounded p-3" (ngSubmit)="loginUser()">
+        <div class="mt-2 mb-2 w-100 d-flex flex-column align-items-center">
+          <p class="fw-semibold fs-5">
+            Seja bem-vindo!
+          </p>
+        </div>
+
+        <div class="mb-3">
+          <label for="usernameInput" class="form-label">Usuário:</label>
+          <input type="text" class="form-control" id="usernameInput" #usernameInput>
+        </div>
+
+        <div class="mb-3">
+          <label for="passwordInput" class="form-label">Senha:</label>
+          <input type="password" class="form-control" id="passwordInput" #passwordInput>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-2 mt-2 submit-button bg-blue bg-default-blue-hover">Login</button>
+
+      </form>
+    </div>
+
+  </div>
+</app-base-page>
