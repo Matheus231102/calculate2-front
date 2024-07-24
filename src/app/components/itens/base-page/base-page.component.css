@@ -1,0 +1,12 @@
+.content-box {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--platinum);
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}

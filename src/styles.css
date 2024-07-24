@@ -7,6 +7,7 @@
 }
 
 body {
+  position: relative;
   height: 100vh;
   font-family: "Josefin Sans", sans-serif;
   font-optical-sizing: auto;
@@ -15,9 +16,11 @@ body {
 :root {
   --rich-black: #0d1b2aff;
   --oxford-blue: #1b263bff;
-  --yinmn-blue: #415a77ff;
-  --silver-lake-blue: #778da9ff;
+  --yinmn-blue: #2e5090;
+  --yinmn-blue-hover: #3f6ec5;
+  --silver-lake-blue: rgba(119, 141, 169, 0.4);
   --platinum: #e0e1ddff;
+  --platinum-light: #edeeeb;
   --safety-orange: #ff7b00ff;
   --dark-orange-web: #ff8800ff;
   --princeton-orange: #ff9500ff;
