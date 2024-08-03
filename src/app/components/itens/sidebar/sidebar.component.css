@@ -3,6 +3,8 @@
   min-width: 230px;
   max-width: 230px;
   background-color: #3663b2;
+  overflow-y: auto;
+  z-index: 1000;
 }
 
 .sidebar-open {
@@ -39,10 +41,10 @@
 }
 
 .sidebar-button {
-  background-color: transparent !important;
+  background-color: rgba(46, 80, 144, 0.4) !important;
   border: none;
 }
 
 .sidebar-button:hover {
-  background-color: rgba(46, 80, 144, 0.4) !important;
+  background-color: rgba(46, 80, 144, 0.81) !important;
 }

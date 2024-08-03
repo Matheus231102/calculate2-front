@@ -6,7 +6,6 @@ import {FormsModule} from "@angular/forms";
 import {HttpHeaders} from "@angular/common/http";
 import {LocalStorageService} from "../../../services/local-storage.service";
 import {RouterPagesService} from "../../../services/router-pages.service";
-import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login-page',
@@ -25,8 +24,7 @@ export class LoginPageComponent {
 
   constructor(private authenticationService: AuthenticationService,
               private localStorageService: LocalStorageService,
-              private routerPages: RouterPagesService,
-              private router: Router) {}
+              private routerPages: RouterPagesService) {}
 
   loginUser() {
     const username = this.usernameInput.nativeElement.value
@@ -36,8 +34,6 @@ export class LoginPageComponent {
       login: username,
       password: password,
     }
-
-    console.log(username)
 
     this.authenticationService.loginUser(loginObject)
       .subscribe((response: any) => {

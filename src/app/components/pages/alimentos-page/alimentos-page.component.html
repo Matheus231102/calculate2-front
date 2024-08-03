@@ -1,8 +1,132 @@
 <app-base-page>
   <div class="main-content d-flex flex-row">
     <app-sidebar></app-sidebar>
-    <div class="content w-100 p-2 ms-5">
 
+    <div class="content w-100 p-2 ms-5">
+      <div class="content-foods d-flex flex-column">
+        <div>
+          <p class="fs-5 fw-semibold">
+            Esses são seus alimentos cadastrados
+          </p>
+        </div>
+        <p class="fw-semibold">
+          Todos os valores estão baseados em 100g de cada propriedade
+        </p>
+
+        <div class="d-flex flex-row mb-2 justify-content-start gap-1">
+          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+            Adicionar
+          </button>
+          <button type="button" class="btn btn-danger" #removeSelectedButton disabled (click)="removeSelectedFoods()">
+            Remover Selecionados
+          </button>
+        </div>
+
+        <!-- Modal -->
+        <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleAddModal" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+
+              <div class="modal-header">
+                <h1 class="modal-title fs-5 fw-bold" id="exampleAddModal">Adicionar alimento</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+              </div>
+
+              <div class="modal-body modal-add">
+                <form class="form-add">
+                  <div>
+                    <p class="fw-semibold">Colocar propriedades de acordo com uma porção de 100g</p>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="text" class="form-control" id="floatName" #floatName placeholder="nome">
+                    <label for="floatName">Nome</label>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-floating mb-3 col">
+                      <input type="number" class="form-control" id="floatCalories" #floatCalories placeholder="calorias">
+                      <label for="floatCalories">calorias</label>
+                    </div>
+
+                    <div class="form-floating mb-3 col">
+                      <input type="number" class="form-control" id="floatProteins" #floatProteins placeholder="calorias">
+                      <label for="floatProteins">proteínas</label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="form-floating mb-3 col">
+                      <input type="number" class="form-control" id="floatCarbohydrates" #floatCarbohydrates placeholder="carboidratos">
+                      <label for="floatCarbohydrates">carboidratos</label>
+                    </div>
+
+                    <div class="form-floating mb-3 col">
+                      <input type="number" class="form-control" id="floatFats" #floatFats placeholder="gorduras">
+                      <label for="floatFats">gorduras</label>
+                    </div>
+                  </div>
+                  <div class="form-floating mb-3">
+                    <input type="number" class="form-control" #floatPrice id="floatPrice" placeholder="preco">
+                    <label for="floatPrice">preço</label>
+                  </div>
+
+                </form>
+              </div>
+
+              <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+                <button type="button" class="btn btn-primary" (click)="addFood()">Adicionar</button>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <!-- Modal -->
+
+        <div>
+          <form [formGroup]="tableFormGroup">
+            <table class="table table-hover table-foods">
+              <thead>
+              <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Calorias/100g</th>
+                <th scope="col">Proteinas/100g</th>
+                <th scope="col">Carboidratos/100g</th>
+                <th scope="col">Gorduras/100g</th>
+                <th scope="col">Preço/100g</th>
+                <th></th>
+              </tr>
+              </thead>
+              <tbody>
+                @for (food of foods; track food.id) {
+                  <tr class="food-item">
+                    <td>{{ food.name }}</td>
+                    <td>{{ food.calories }}</td>
+                    <td>{{ food.proteins }}</td>
+                    <td>{{ food.carbohydrates }}</td>
+                    <td>{{ food.fats }}</td>
+                    <td>{{ food.price }}</td>
+                    <td>
+                      <input class="form-check-input" type="checkbox" formControlName="food-{{ food.id }}">
+                    </td>
+                  </tr>
+                }
+              <tr>
+                <td><p class="fs-6 fw-semibold">Médias de cada propriedade</p></td>
+                <td><p class="fw-bold">{{ this.caloriesAverage }}</p></td>
+                <td><p class="fw-bold">{{ this.proteinsAverage }}</p></td>
+                <td><p class="fw-bold">{{ this.carbohydratesAverage }}</p></td>
+                <td><p class="fw-bold">{{ this.fatsAverage }}</p></td>
+                <td><p class="fw-bold">{{ this.priceAverage }}</p></td>
+                <td></td>
+              </tr>
+              </tbody>
+            </table>
+          </form>
+
+
+        </div>
+      </div>
 
 
 
