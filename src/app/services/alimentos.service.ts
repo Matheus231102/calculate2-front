@@ -46,4 +46,10 @@ export class AlimentosService {
     })
   }
 
+  updateFood(foodDTO: FoodDTO, id: string) {
+    return this.httpClient.patch(`${this.urlBase}${this.alimentosEndpoint}/${id}`, foodDTO, {
+      headers: this.alimentosHeaders,
+    })
+  }
+
 }

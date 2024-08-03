@@ -1,0 +1,62 @@
+<div>
+  <button #openButton data-bs-toggle="modal" data-bs-target="#baseModal" style="display: none"></button>
+  <button #closeButton data-bs-dismiss="modal" style="display: none"></button>
+</div>
+<div class="modal fade" id="baseModal" tabindex="-1" aria-labelledby="baseModal" aria-hidden="true">
+
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h1 class="modal-title fs-5 fw-bold" id="exampleAddModal">Adicionar alimento</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body modal-add">
+        <form class="form-add">
+          <div>
+            <p class="fw-semibold">Colocar propriedades de acordo com uma porção de 100g</p>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" class="form-control" id="floatName" #floatName placeholder="nome">
+            <label for="floatName">Nome</label>
+          </div>
+
+          <div class="row">
+            <div class="form-floating mb-3 col">
+              <input type="number" class="form-control" id="floatCalories" #floatCalories placeholder="calorias">
+              <label for="floatCalories">calorias</label>
+            </div>
+
+            <div class="form-floating mb-3 col">
+              <input type="number" class="form-control" id="floatProteins" #floatProteins placeholder="calorias">
+              <label for="floatProteins">proteínas</label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="form-floating mb-3 col">
+              <input type="number" class="form-control" id="floatCarbohydrates" #floatCarbohydrates placeholder="carboidratos">
+              <label for="floatCarbohydrates">carboidratos</label>
+            </div>
+
+            <div class="form-floating mb-3 col">
+              <input type="number" class="form-control" id="floatFats" #floatFats placeholder="gorduras">
+              <label for="floatFats">gorduras</label>
+            </div>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="number" class="form-control" #floatPrice id="floatPrice" placeholder="preco">
+            <label for="floatPrice">preço</label>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Fechar</button>
+        <button type="button" class="btn btn-primary">Adicionar</button>
+      </div>
+    </div>
+
+  </div>
+</div>

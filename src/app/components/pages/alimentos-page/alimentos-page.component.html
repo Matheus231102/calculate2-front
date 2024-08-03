@@ -18,11 +18,16 @@
             Adicionar
           </button>
           <button type="button" class="btn btn-danger" #removeSelectedButton disabled (click)="removeSelectedFoods()">
-            Remover Selecionados
+            Remover
+          </button>
+          <button type="button" class="btn btn-success" #updateSelectedButton disabled (click)="openUpdateModal()">
+            Atualizar
           </button>
         </div>
 
-        <!-- Modal -->
+        <app-update-modal (updateEvent)="updateSelectedFood($event)"></app-update-modal>
+
+        <!-- Modal Adicionar -->
         <div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="exampleAddModal" aria-hidden="true">
           <div class="modal-dialog">
             <div class="modal-content">
@@ -81,11 +86,11 @@
 
           </div>
         </div>
-        <!-- Modal -->
+        <!-- Modal Adicionar -->
 
         <div>
           <form [formGroup]="tableFormGroup">
-            <table class="table table-hover table-foods">
+            <table class="table table-responsive table-hover table-foods">
               <thead>
               <tr>
                 <th scope="col">Nome</th>
@@ -97,7 +102,7 @@
                 <th></th>
               </tr>
               </thead>
-              <tbody>
+              <tbody class="table-group-divider">
                 @for (food of foods; track food.id) {
                   <tr class="food-item">
                     <td>{{ food.name }}</td>
@@ -123,12 +128,8 @@
               </tbody>
             </table>
           </form>
-
-
         </div>
       </div>
-
-
 
     </div>
   </div>
