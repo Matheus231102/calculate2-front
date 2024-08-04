@@ -14,13 +14,13 @@
         </p>
 
         <div class="d-flex flex-row mb-2 justify-content-start gap-1">
-          <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addModal">
+          <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addModal">
             Adicionar
           </button>
           <button type="button" class="btn btn-danger" #removeSelectedButton disabled (click)="removeSelectedFoods()">
             Remover
           </button>
-          <button type="button" class="btn btn-success" #updateSelectedButton disabled (click)="openUpdateModal()">
+          <button type="button" class="btn btn-primary" #updateSelectedButton disabled (click)="openUpdateModal()">
             Atualizar
           </button>
         </div>
@@ -116,7 +116,7 @@
                     </td>
                   </tr>
                 }
-              <tr>
+              <tr class="table-group-divider">
                 <td><p class="fs-6 fw-semibold">Médias de cada propriedade</p></td>
                 <td><p class="fw-bold">{{ this.caloriesAverage }}</p></td>
                 <td><p class="fw-bold">{{ this.proteinsAverage }}</p></td>

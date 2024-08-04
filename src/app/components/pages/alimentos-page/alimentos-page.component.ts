@@ -65,7 +65,7 @@ export class AlimentosPageComponent implements OnInit {
   }
 
   /* CRUD OPERATIONS */
-  updateFoods() {
+  private updateFoods() {
     this.alimentosService.getAllFoods()
       .subscribe(response => {
         if (response.body) {
@@ -78,7 +78,7 @@ export class AlimentosPageComponent implements OnInit {
       })
   }
 
-  addFood() {
+  public addFood() {
     const floatName = this.floatName.nativeElement.value
     const floatCalories = this.floatCalories.nativeElement.value
     const floatProteins = this.floatProteins.nativeElement.value
@@ -101,15 +101,7 @@ export class AlimentosPageComponent implements OnInit {
       })
   }
 
-  removeFood(id: string) {
-    this.alimentosService.removeFood(id)
-      .subscribe(response => {
-        this.updateFoods()
-        this.tableFormGroup.reset();
-      })
-  }
-
-  removeFoods(foodsId: Array<string>) {
+  private removeFoods(foodsId: Array<string>) {
     this.alimentosService.removeFoods(foodsId)
       .subscribe(response => {
         this.updateFoods()
@@ -117,7 +109,7 @@ export class AlimentosPageComponent implements OnInit {
       })
   }
 
-  removeSelectedFoods() {
+  public removeSelectedFoods() {
     let selectedItens: Array<string> = [];
 
     Object.entries(this.tableFormGroup.value).forEach((element: Array<any>) => {
@@ -130,7 +122,7 @@ export class AlimentosPageComponent implements OnInit {
     selectedItens = [];
   }
 
-  updateSelectedFood(foodDTO: FoodDTO) {
+  public updateSelectedFood(foodDTO: FoodDTO) {
     this.updateModalComponent.close()
     this.alimentosService.updateFood(foodDTO, this.getSelectedItemId())
       .subscribe(response => {
@@ -139,14 +131,14 @@ export class AlimentosPageComponent implements OnInit {
   }
 
   /* UPDATE MODAL */
-  openUpdateModal() {
+  public openUpdateModal() {
     this.changeSelectedFood();
     this.updateModalComponent.changeFields(this.selectedItem);
     this.updateModalComponent.open()
   }
 
   /* UPDATE PROPERTIES FUNCTION */
-  updateAverageProperties(){
+  private updateAverageProperties(){
     this.calculateAverageCalories()
     this.calculateAverageProteins()
     this.calculateAverageCarbohydrates()
@@ -154,7 +146,7 @@ export class AlimentosPageComponent implements OnInit {
     this.calculateAveragePrice()
   }
 
-  calculateAverageCalories() {
+  private calculateAverageCalories() {
     const totalCalories = this.foods.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.calories;
     }, 0)
@@ -162,7 +154,7 @@ export class AlimentosPageComponent implements OnInit {
     this.caloriesAverage = NumberFormatUtils.formatNumberToFixed(totalCalories / this.foods.length, this.averageValuesAccuracy)
   }
 
-  calculateAverageProteins() {
+  private calculateAverageProteins() {
     const totalProteins = this.foods.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.proteins;
     }, 0)
@@ -170,7 +162,7 @@ export class AlimentosPageComponent implements OnInit {
     this.proteinsAverage = NumberFormatUtils.formatNumberToFixed(totalProteins / this.foods.length, this.averageValuesAccuracy)
   }
 
-  calculateAverageCarbohydrates() {
+  private calculateAverageCarbohydrates() {
     const totalCarbohydrates = this.foods.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.carbohydrates;
     }, 0)
@@ -178,7 +170,7 @@ export class AlimentosPageComponent implements OnInit {
     this.carbohydratesAverage = NumberFormatUtils.formatNumberToFixed(totalCarbohydrates / this.foods.length, this.averageValuesAccuracy)
   }
 
-  calculateAverageFats() {
+  private calculateAverageFats() {
     const totalFats = this.foods.reduce((previousValue, currentValue) => {
       return previousValue + currentValue.fats;
     }, 0)
@@ -186,7 +178,7 @@ export class AlimentosPageComponent implements OnInit {
     this.fatsAverage = NumberFormatUtils.formatNumberToFixed(totalFats / this.foods.length, this.averageValuesAccuracy)
   }
 
-  calculateAveragePrice() {
+  private calculateAveragePrice() {
     const totalPrice = this.foods.reduce((previousValue, currentValue) => {
 
       return previousValue + currentValue.price;

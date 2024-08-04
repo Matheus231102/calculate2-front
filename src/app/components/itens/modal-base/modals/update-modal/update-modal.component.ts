@@ -1,5 +1,5 @@
-import {Component, ElementRef, EventEmitter, Input, Output, Renderer2, ViewChild} from '@angular/core';
-import {ReactiveFormsModule} from "@angular/forms";
+import {AfterViewInit, Component, ElementRef, EventEmitter, OnInit, Output, Renderer2, ViewChild} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {IFood} from "../../../../../interfaces/IFood";
 import {FoodDTO} from "../../../../../interfaces/FoodDTO";
 
@@ -12,9 +12,10 @@ import {FoodDTO} from "../../../../../interfaces/FoodDTO";
   templateUrl: './update-modal.component.html',
   styleUrl: './update-modal.component.css'
 })
-export class UpdateModalComponent {
+export class UpdateModalComponent implements OnInit {
   @ViewChild("openButton") openButton!: ElementRef;
   @ViewChild("closeButton") closeButton!: ElementRef;
+  @ViewChild("updateButton") updateButton!: ElementRef;
 
   @ViewChild("floatName") floatName!: ElementRef;
   @ViewChild("floatCalories") floatCalories!: ElementRef;
@@ -25,7 +26,37 @@ export class UpdateModalComponent {
 
   @Output() updateEvent: EventEmitter<FoodDTO> = new EventEmitter();
 
-  constructor(private renderer: Renderer2) {}
+  mainForm!: FormGroup;
+
+  constructor(private renderer: Renderer2,
+              private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.mainForm = this.formBuilder.group({
+      floatName: new FormControl('', [Validators.required, Validators.minLength(1)]),
+      floatCalories: new FormControl(0, [Validators.required, Validators.min(0)]),
+      floatProteins: new FormControl(0, [Validators.required, Validators.min(0)]),
+      floatCarbohydrates: new FormControl(0, [Validators.required, Validators.min(0)]),
+      floatFats: new FormControl(0, [Validators.required, Validators.min(0)]),
+      floatPrice: new FormControl(0, [Validators.required, Validators.min(0)]),
+    })
+
+    this.mainForm.valueChanges.subscribe(change => {
+      if (this.mainForm.status === "VALID") {
+        this.enableSubmitButton();
+      } else if (this.mainForm.status === "INVALID") {
+        this.disableSubmitButton();
+      }
+    })
+  }
+
+  private enableSubmitButton() {
+    this.updateButton.nativeElement.disabled = false
+  }
+
+  private disableSubmitButton() {
+    this.updateButton.nativeElement.disabled = true
+  }
 
   open() {
     this.renderer.selectRootElement(this.openButton.nativeElement).click()
@@ -87,6 +118,7 @@ export class UpdateModalComponent {
       proteins: this.getProteinsValue()
     }
     this.updateEvent.emit(changedFood);
+    console.log(this.mainForm)
   }
 
 }
