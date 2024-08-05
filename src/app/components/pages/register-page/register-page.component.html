@@ -1,0 +1,102 @@
+<app-base-page>
+  <div class="main-content d-flex flex-row">
+
+    <div class="content d-flex justify-content-center align-items-center flex-grow-1">
+
+      <form [formGroup]="mainForm" class="main-form border-end rounded p-3" (ngSubmit)="registerUser()" >
+        <div class="mt-2 mb-2 w-100 d-flex flex-column align-items-center">
+          <p class="fw-semibold fs-5">
+            Seja bem-vindo!
+          </p>
+        </div>
+
+        <div class="mb-2">
+          <label for="nameInput" class="form-label">Nome:</label>
+          <input type="text" class="form-control" id="nameInput"
+                 [class.red-border]="nameInvalidTouched"
+                 [class.green-border]="nameValid"
+                 formControlName="nameInput">
+        </div>
+
+        <div class="mb-2">
+          <label for="usernameInput" class="form-label">Nome de usuário:</label>
+          <input type="text" class="form-control" id="usernameInput"
+                 [class.red-border]="usernameInvalidTouched"
+                 [class.green-border]="usernameValid"
+                 formControlName="usernameInput" aria-describedby="usernameBlock">
+          <div id="usernameBlock" class="form-text">
+            O nome de usuário deve ter pelo menos 4 caracteres e não pode conter espaços.
+          </div>
+        </div>
+
+        <div class="mb-4">
+          <label for="emailInput" class="form-label">E-mail:</label>
+          <input type="text" class="form-control" id="emailInput"
+                 [class.red-border]="emailInvalidTouched"
+                 [class.green-border]="emailValid"
+                 formControlName="emailInput" aria-describedby="emailBlock">
+          <div id="emailBlock" class="form-text">
+            @if (emailInvalidTouched) {
+              <span>E-mail inserido inválido.</span>
+            } @else if (emailValid) {
+              <span>E-mail válido.</span>
+            }
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <label for="passwordInput" class="form-label">Senha:</label>
+          <input type="password" class="form-control" id="passwordInput"
+                 [class.red-border]="passwordInvalidTouched"
+                 [class.green-border]="passwordValid && bothPasswordsTheSame"
+                 formControlName="passwordInput" aria-describedby="passwordBlock">
+          <div id="passwordBlock" class="form-text">
+            <div class="d-flex flex-column">
+              <span [class.green-alert]="passwordHasLeastOneDigit">
+                A senha deve conter pelo menos um dígito (0-9).
+              </span>
+              <span [class.green-alert]="passwordHasLeastOneLowerCase">
+                A senha deve conter pelo menos uma letra minúscula (a-z).
+              </span>
+              <span [class.green-alert]="passwordHasLeastOneUpperCase">
+                A senha deve conter pelo menos uma letra maiúscula (A-Z).
+              </span>
+              <span [class.green-alert]="passwordHasMinLength">
+                A senha deve ter pelo menos 8 caracteres.
+              </span>
+              <span [class.red-alert]="!passwordHasOnlyAllowedSpecialChars">
+                A senha pode conter somente os caracteres especiais: $, *, &, {{ '@' }}, #.
+              </span>
+            </div>
+            <div>
+              @if (!bothPasswordsTheSame) {
+                <span class="fw-bold red-alert">As senhas não coincidem.</span>
+              }
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <label for="password2Input" class="form-label">Repita a senha inserida:</label>
+
+          <input type="password" class="form-control" id="password2Input"
+                 [class.red-border]="passwordInvalidTouched"
+                 [class.green-border]="passwordValid && bothPasswordsTheSame"
+                 formControlName="password2Input">
+        </div>
+
+        <div class="mb-3">
+          <span class="align-items-center fw-bold fs-6 pointer" (click)="routerPages.toLogin()">
+            Já possui uma conta ?
+          </span>
+        </div>
+
+        <button type="submit" class="btn btn-primary mb-2 mt-2 submit-button bg-blue bg-default-blue-hover">
+          Registrar
+        </button>
+
+      </form>
+    </div>
+
+  </div>
+</app-base-page>

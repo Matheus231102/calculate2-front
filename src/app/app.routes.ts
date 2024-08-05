@@ -4,10 +4,12 @@ import {HomePageComponent} from "./components/pages/home-page/home-page.componen
 import {RefeicoesPageComponent} from "./components/pages/refeicoes-page/refeicoes-page.component";
 import {AlimentosPageComponent} from "./components/pages/alimentos-page/alimentos-page.component";
 import {authenticationGuard} from "./guards/authentication.guard";
+import {RegisterPageComponent} from "./components/pages/register-page/register-page.component";
 
 export const routes: Routes = [
   { path: "", component: LoginPageComponent },
   { path: "login", component: LoginPageComponent },
+  { path: "register", component: RegisterPageComponent },
   { path: "home", component: HomePageComponent, canActivate: [authenticationGuard] },
   { path: "alimentos", component: AlimentosPageComponent, canActivate: [authenticationGuard]},
   { path: "refeicoes", component: RefeicoesPageComponent, canActivate: [authenticationGuard]},

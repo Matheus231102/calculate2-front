@@ -24,7 +24,7 @@ export class LoginPageComponent {
 
   constructor(private authenticationService: AuthenticationService,
               private localStorageService: LocalStorageService,
-              private routerPages: RouterPagesService) {}
+              protected routerPages: RouterPagesService) {}
 
   loginUser() {
     const username = this.usernameInput.nativeElement.value
