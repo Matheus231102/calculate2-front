@@ -6,7 +6,7 @@ import {Observable} from "rxjs";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthenticationService {
+export class LoginService {
   private readonly urlBase: string = "http://localhost:8080"
   private readonly loginEndpoint : string = "/users/login";
 
@@ -24,4 +24,5 @@ export class AuthenticationService {
         observe: "response"
       });
   }
+
 }

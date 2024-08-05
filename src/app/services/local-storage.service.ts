@@ -1,14 +1,18 @@
 import { Injectable } from '@angular/core';
+import { BehaviorSubject } from "rxjs";
 
 @Injectable({
   providedIn: 'root'
 })
 export class LocalStorageService {
   public static userJwtTokenField: string = "calculate-macro-jwt";
-  private storage: Storage;
+  private readonly storage: Storage;
+  private tokenBehaviorSubject: BehaviorSubject<string | null>;
 
   constructor() {
     this.storage = window.localStorage;
+    const initialToken = this.getUserToken();
+    this.tokenBehaviorSubject = new BehaviorSubject<string | null>(initialToken);
   }
 
   set(key: string, value: string): boolean {
@@ -17,8 +21,10 @@ export class LocalStorageService {
     }
 
     this.storage.setItem(key, JSON.stringify(value));
+    if (key === LocalStorageService.userJwtTokenField) {
+      this.tokenBehaviorSubject.next(value);
+    }
     return true
-
   }
 
   get(key: string): string|null {
@@ -28,8 +34,7 @@ export class LocalStorageService {
 
     let data = this.storage.getItem(key)!
 
-    if (!data) return null;
-    return JSON.parse(data);
+    return data ? JSON.parse(data) : null;
   }
 
   remove(key: string): boolean {
@@ -38,6 +43,10 @@ export class LocalStorageService {
     }
 
     this.storage.removeItem(key);
+    if (key === LocalStorageService.userJwtTokenField) {
+      this.tokenBehaviorSubject.next(null);
+    }
+
     return true;
   }
 
@@ -45,8 +54,8 @@ export class LocalStorageService {
     if (!this.storage) {
       return false
     }
-
     this.storage.clear()
+    this.tokenBehaviorSubject.next(null)
     return true
   }
 
@@ -60,5 +69,9 @@ export class LocalStorageService {
 
   clearUserToken() {
     this.remove(LocalStorageService.userJwtTokenField)
+  }
+
+  getTokenObservable() {
+    return this.tokenBehaviorSubject.asObservable();
   }
 }

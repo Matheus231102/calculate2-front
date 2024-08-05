@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {AuthenticationService} from "../../../services/authentication.service";
+import {LoginService} from "../../../services/login.service";
 import {LocalStorageService} from "../../../services/local-storage.service";
 import {RouterPagesService} from "../../../services/router-pages.service";
 import {BasePageComponent} from "../../itens/base-page/base-page.component";
@@ -24,7 +24,7 @@ export class HomePageComponent implements OnInit {
   public userToken: string = "no token";
   public username!: string;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private authenticationService: LoginService,
               private routerPages: RouterPagesService,
               private localStorageService: LocalStorageService) {}
 

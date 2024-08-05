@@ -1,6 +1,6 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BasePageComponent} from "../../itens/base-page/base-page.component";
-import {AuthenticationService} from "../../../services/authentication.service";
+import {LoginService} from "../../../services/login.service";
 import {LoginDTO} from "../../../interfaces/LoginDTO";
 import {FormsModule} from "@angular/forms";
 import {HttpHeaders} from "@angular/common/http";
@@ -18,13 +18,19 @@ import {RouterPagesService} from "../../../services/router-pages.service";
   templateUrl: './login-page.component.html',
   styleUrl: './login-page.component.css'
 })
-export class LoginPageComponent {
+export class LoginPageComponent implements OnInit {
   @ViewChild("usernameInput") usernameInput!: ElementRef;
   @ViewChild("passwordInput") passwordInput!: ElementRef;
 
-  constructor(private authenticationService: AuthenticationService,
+  constructor(private authenticationService: LoginService,
               private localStorageService: LocalStorageService,
               protected routerPages: RouterPagesService) {}
+
+  ngOnInit(): void {
+    if (this.localStorageService.getUserToken()) {
+      this.routerPages.toHome()
+    }
+  }
 
   loginUser() {
     const username = this.usernameInput.nativeElement.value
@@ -41,6 +47,7 @@ export class LoginPageComponent {
         const jwtToken = headers.get("Authorization");
 
         if (jwtToken != null) {
+          this.localStorageService.clearUserToken()
           this.localStorageService.setUserToken(jwtToken)
           this.routerPages.toHome()
         }

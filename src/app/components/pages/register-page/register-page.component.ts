@@ -1,10 +1,12 @@
-import {Component, ElementRef, OnInit, Renderer2, ViewChild} from '@angular/core';
+import {Component,OnInit} from '@angular/core';
 import {BasePageComponent} from "../../itens/base-page/base-page.component";
 import {FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {RouterPagesService} from "../../../services/router-pages.service";
 import {NgClass} from "@angular/common";
-import {first} from "rxjs";
 import {RegisterDTO} from "../../../interfaces/RegisterDTO";
+import {RegisterService} from "../../../services/register.service";
+import {HttpHeaders} from "@angular/common/http";
+import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-register-page',
@@ -26,6 +28,8 @@ export class RegisterPageComponent implements OnInit {
   private noSpaceValidatorPattern: string = "^[^\\s]+$"
 
   constructor(protected routerPages: RouterPagesService,
+              protected registerService: RegisterService,
+              protected localStorageService: LocalStorageService,
               private formBuilder: FormBuilder) {}
 
   ngOnInit(): void {
@@ -62,7 +66,19 @@ export class RegisterPageComponent implements OnInit {
   registerUser() {
     let formValues: RegisterDTO = this.getRegisterFormValues();
     if (this.mainForm.valid && this.bothPasswordsTheSame) {
-      console.log(this.mainForm.controls)
+      this.registerService.registerUser(formValues)
+        .subscribe(response => {
+          const headers: HttpHeaders = response.headers;
+          const jwtToken = headers.get("Authorization");
+
+          if (jwtToken != null) {
+            this.localStorageService.clearUserToken()
+            this.localStorageService.setUserToken(jwtToken)
+            this.routerPages.toHome()
+          }
+
+        })
+      console.log(formValues)
     }
   }
 
@@ -71,7 +87,7 @@ export class RegisterPageComponent implements OnInit {
       name: this.mainForm.controls["nameInput"].value,
       username: this.mainForm.controls["usernameInput"].value,
       email: this.mainForm.controls["emailInput"].value,
-      password: this.mainForm.controls["nameInput"].value
+      password: this.mainForm.controls["passwordInput"].value
     }
   }
 
