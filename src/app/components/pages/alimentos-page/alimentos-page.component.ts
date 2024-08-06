@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {BasePageComponent} from "../../itens/base-page/base-page.component";
 import {SidebarComponent} from "../../itens/sidebar/sidebar.component";
 import {AlimentosService} from "../../../services/alimentos.service";
@@ -8,8 +8,6 @@ import {FoodDTO} from "../../../interfaces/FoodDTO";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ModalBaseComponent} from "../../itens/modal-base/modal-base.component";
 import {UpdateModalComponent} from "../../itens/modal-base/modals/update-modal/update-modal.component";
-import {Subscription} from "rxjs";
-import {LocalStorageService} from "../../../services/local-storage.service";
 
 @Component({
   selector: 'app-alimentos-page',

@@ -117,13 +117,15 @@
                   </tr>
                 }
               <tr class="table-group-divider">
-                <td><p class="fs-6 fw-semibold">Médias de cada propriedade</p></td>
-                <td><p class="fw-bold">{{ this.caloriesAverage }}</p></td>
-                <td><p class="fw-bold">{{ this.proteinsAverage }}</p></td>
-                <td><p class="fw-bold">{{ this.carbohydratesAverage }}</p></td>
-                <td><p class="fw-bold">{{ this.fatsAverage }}</p></td>
-                <td><p class="fw-bold">{{ this.priceAverage }}</p></td>
-                <td></td>
+                @if (foods.length != 0) {
+                  <td><p class="fs-6 fw-semibold">Médias de cada propriedade</p></td>
+                  <td><p class="fw-bold">{{ this.caloriesAverage }}</p></td>
+                  <td><p class="fw-bold">{{ this.proteinsAverage }}</p></td>
+                  <td><p class="fw-bold">{{ this.carbohydratesAverage }}</p></td>
+                  <td><p class="fw-bold">{{ this.fatsAverage }}</p></td>
+                  <td><p class="fw-bold">{{ this.priceAverage }}</p></td>
+                  <td></td>
+                }
               </tr>
               </tbody>
             </table>
