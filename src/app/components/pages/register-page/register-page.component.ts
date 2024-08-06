@@ -30,8 +30,8 @@ export class RegisterPageComponent implements OnInit {
 
   public mainForm!: FormGroup;
 
-  protected isEmailAvailable: boolean = false;
-  protected isUsernameAvailable: boolean = false;
+  protected isEmailAvailable: boolean = true;
+  protected isUsernameAvailable: boolean = true;
 
   private passwordValidatorPattern: string = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z$*&@#]{8,}";
   private noSpaceValidatorPattern: string = "^[^\\s]+$"
@@ -45,6 +45,7 @@ export class RegisterPageComponent implements OnInit {
     this.setRegisterFormGroup();
     this.setRegisterFormControls();
     this.setEmailAvailabilityListener();
+    this.setUsernameAvailabilityListener();
   }
 
   private setRegisterFormGroup() {
@@ -75,14 +76,15 @@ export class RegisterPageComponent implements OnInit {
       Validators.pattern(this.passwordValidatorPattern)]))
   }
 
-  registerUser() {
+  public registerUser() {
     let registerDTO: RegisterDTO = this.getRegisterFormValues();
-    if (this.isTheMainFormValid && this.bothPasswordsTheSame) {
+    if (this.isMainFormValid && this.areBothPasswordsTheSame && this.isCredentialsAvailable) {
       this.registerService.registerUser(registerDTO)
         .subscribe(response => {
           const headers: HttpHeaders = response.headers;
           const jwtToken = headers.get("Authorization");
 
+          console.log("registrando usuário")
           if (jwtToken != null) {
             this.localStorageService.clearUserToken()
             this.localStorageService.setUserToken(jwtToken)
@@ -114,6 +116,20 @@ export class RegisterPageComponent implements OnInit {
       })
   }
 
+  private setUsernameAvailabilityListener() {
+    this.getUsernameControl.valueChanges
+      .pipe(
+        debounceTime(600))
+      .subscribe({
+        next: () => {
+          if (this.isUsernameValid) {
+            this.checkUsernameAvailability()
+          }
+        },
+      })
+
+  }
+
   private checkEmailAvailability() {
     let email = this.getEmailControl.value
     this.registerService.isEmailAvailable(email).subscribe({
@@ -123,8 +139,21 @@ export class RegisterPageComponent implements OnInit {
     })
   }
 
-  get isTheMainFormValid() {
+  private checkUsernameAvailability() {
+    let username = this.getUsernameControl.value
+    this.registerService.isUsernameAvailable(username).subscribe({
+      next: (response) => {
+        this.isUsernameAvailable = <boolean>response.body;
+      }
+    })
+  }
+
+  get isMainFormValid() {
     return this.mainForm.valid
+  }
+
+  get isCredentialsAvailable() {
+    return this.isEmailAvailable && this.isUsernameAvailable
   }
 
   /* EMAIL VALIDATIONS CONDITIONS*/
@@ -137,28 +166,28 @@ export class RegisterPageComponent implements OnInit {
   }
 
   /* NAME AND USERNAME VALIDATIONS CONDITIONS */
-  get nameValid() {
+  get isNameValid() {
     return this.getNameControl.valid
   }
 
-  get nameInvalidTouched() {
+  get isNameInvalidTouched() {
     return !this.getNameControl.valid && this.getNameControl.touched;
   }
 
-  get usernameValid() {
+  get isUsernameValid() {
     return this.getUsernameControl.valid
   }
 
-  get usernameInvalidTouched() {
+  get isUsernameInvalidTouched() {
     return this.getUsernameControl.invalid && this.getUsernameControl.touched;
   }
 
   /* PASSWORD VALIDATIONS CONDITIONS */
-  get passwordValid() {
+  get isPasswordValid() {
     return this.getPasswordControl.valid && this.getPassword2Control.valid
   }
 
-  get passwordInvalidTouched() {
+  get isPasswordInvalidTouched() {
     let firstPasswordBooleanControl: boolean = this.getPasswordControl.invalid &&
       this.getPasswordControl.touched;
 
@@ -168,7 +197,7 @@ export class RegisterPageComponent implements OnInit {
     return firstPasswordBooleanControl && secondPasswordBooleanControl
   }
 
-  get bothPasswordsTheSame(): boolean {
+  get areBothPasswordsTheSame(): boolean {
     let password1 = this.getPasswordControl.value
     let password2 = this.getPassword2Control.value
     return password1 === password2

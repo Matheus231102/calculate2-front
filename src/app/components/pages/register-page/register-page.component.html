@@ -13,8 +13,8 @@
         <div class="mb-2">
           <label for="nameInput" class="form-label">Nome:</label>
           <input type="text" class="form-control" id="nameInput"
-                 [class.red-border]="nameInvalidTouched"
-                 [class.green-border]="nameValid"
+                 [class.red-border]="isNameInvalidTouched"
+                 [class.green-border]="isNameValid"
                  formControlName="{{ this.nameControlName }}" aria-describedby="nameBlock">
           <div id="nameBlock" class="form-text">
             O nome deve ter pelo menos 2 caracteres.
@@ -24,12 +24,18 @@
         <div class="mb-2">
           <label for="usernameInput" class="form-label">Nome de usuário:</label>
           <input type="text" class="form-control" id="usernameInput"
-                 [class.red-border]="usernameInvalidTouched"
-                 [class.green-border]="usernameValid"
+                 [class.red-border]="isUsernameInvalidTouched"
+                 [class.green-border]="isUsernameValid"
+                 [class.orange-border]="isUsernameValid && !isUsernameAvailable"
                  formControlName="{{ this.usernameControlName }}" aria-describedby="usernameBlock">
           <div id="usernameBlock" class="form-text">
             O nome de usuário deve ter pelo menos 4 caracteres e não pode conter espaços.
           </div>
+          @if (isUsernameValid && !isUsernameAvailable) {
+            <div class="form-text">
+              <span>O nome de usuário {{ this.getUsernameControl.value }} não está disponível.</span>
+            </div>
+          }
         </div>
 
         <div class="mb-4">
@@ -53,8 +59,8 @@
         <div class="mb-2">
           <label for="passwordInput" class="form-label">Senha:</label>
           <input type="password" class="form-control" id="passwordInput"
-                 [class.red-border]="passwordInvalidTouched"
-                 [class.green-border]="passwordValid && bothPasswordsTheSame"
+                 [class.red-border]="isPasswordInvalidTouched"
+                 [class.green-border]="isPasswordValid && areBothPasswordsTheSame"
                  formControlName="{{ this.passwordControlName }}" aria-describedby="passwordBlock">
           <div id="passwordBlock" class="form-text">
             <div class="d-flex flex-column">
@@ -75,7 +81,7 @@
               </span>
             </div>
             <div>
-              @if (!bothPasswordsTheSame) {
+              @if (!areBothPasswordsTheSame) {
                 <span class="fw-bold red-alert">As senhas não coincidem.</span>
               }
             </div>
@@ -86,8 +92,8 @@
           <label for="password2Input" class="form-label">Repita a senha inserida:</label>
 
           <input type="password" class="form-control" id="password2Input"
-                 [class.red-border]="passwordInvalidTouched"
-                 [class.green-border]="passwordValid && bothPasswordsTheSame"
+                 [class.red-border]="isPasswordInvalidTouched"
+                 [class.green-border]="isPasswordValid && areBothPasswordsTheSame"
                  formControlName="password2Input">
         </div>
 
