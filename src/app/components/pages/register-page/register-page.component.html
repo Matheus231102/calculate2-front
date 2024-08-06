@@ -15,7 +15,10 @@
           <input type="text" class="form-control" id="nameInput"
                  [class.red-border]="nameInvalidTouched"
                  [class.green-border]="nameValid"
-                 formControlName="nameInput">
+                 formControlName="{{ this.nameControlName }}" aria-describedby="nameBlock">
+          <div id="nameBlock" class="form-text">
+            O nome deve ter pelo menos 2 caracteres.
+          </div>
         </div>
 
         <div class="mb-2">
@@ -23,8 +26,7 @@
           <input type="text" class="form-control" id="usernameInput"
                  [class.red-border]="usernameInvalidTouched"
                  [class.green-border]="usernameValid"
-                 [class.orange-border]="usernameValid && !isUsernameAvailable"
-                 formControlName="usernameInput" aria-describedby="usernameBlock">
+                 formControlName="{{ this.usernameControlName }}" aria-describedby="usernameBlock">
           <div id="usernameBlock" class="form-text">
             O nome de usuário deve ter pelo menos 4 caracteres e não pode conter espaços.
           </div>
@@ -33,16 +35,16 @@
         <div class="mb-4">
           <label for="emailInput" class="form-label">E-mail:</label>
           <input type="text" class="form-control" id="emailInput"
-                 [class.red-border]="emailInvalidTouched"
-                 [class.green-border]="emailValid"
-                 [class.orange-border]="emailValid && !isEmailAvailable"
-                 formControlName="emailInput" aria-describedby="emailBlock">
+                 [class.red-border]="!isEmailValid && isEmailTouched"
+                 [class.green-border]="isEmailValid"
+                 [class.orange-border]="isEmailValid && !isEmailAvailable"
+                 formControlName="{{ this.emailControlName }}" aria-describedby="emailBlock">
           <div id="emailBlock" class="form-text">
-            @if (emailInvalidTouched) {
+            @if (!isEmailValid) {
               <span>E-mail inserido inválido.</span>
-            } @else if (emailValid && !isEmailAvailable) {
+            } @else if (isEmailValid && !isEmailAvailable) {
               <span>Já existe uma conta associada a este e-mail.</span>
-            } @else if (emailValid) {
+            } @else if (isEmailValid) {
               <span>E-mail válido.</span>
             }
           </div>
@@ -53,7 +55,7 @@
           <input type="password" class="form-control" id="passwordInput"
                  [class.red-border]="passwordInvalidTouched"
                  [class.green-border]="passwordValid && bothPasswordsTheSame"
-                 formControlName="passwordInput" aria-describedby="passwordBlock">
+                 formControlName="{{ this.passwordControlName }}" aria-describedby="passwordBlock">
           <div id="passwordBlock" class="form-text">
             <div class="d-flex flex-column">
               <span [class.green-alert]="passwordHasLeastOneDigit">
