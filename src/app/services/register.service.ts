@@ -25,4 +25,24 @@ export class RegisterService {
       });
   }
 
+  isEmailAvailable(email: string) {
+    return this.httpClient.post(`${this.urlBase}${this.registerEndpoint}/emailAvailable`, {
+      "email": email
+    }, {
+      headers: this.registerHeader,
+      observe: "response"
+    })
+  }
+
+  isUsernameAvailable(username: string) {
+    return this.httpClient.post(`${this.urlBase}${this.registerEndpoint}/usernameAvailable`, {
+      "username": username
+    }, {
+      headers: this.registerHeader,
+      observe: "response"
+    })
+  }
+
+
+
 }

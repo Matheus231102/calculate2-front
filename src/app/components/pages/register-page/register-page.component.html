@@ -23,6 +23,7 @@
           <input type="text" class="form-control" id="usernameInput"
                  [class.red-border]="usernameInvalidTouched"
                  [class.green-border]="usernameValid"
+                 [class.orange-border]="usernameValid && !isUsernameAvailable"
                  formControlName="usernameInput" aria-describedby="usernameBlock">
           <div id="usernameBlock" class="form-text">
             O nome de usuário deve ter pelo menos 4 caracteres e não pode conter espaços.
@@ -34,10 +35,13 @@
           <input type="text" class="form-control" id="emailInput"
                  [class.red-border]="emailInvalidTouched"
                  [class.green-border]="emailValid"
+                 [class.orange-border]="emailValid && !isEmailAvailable"
                  formControlName="emailInput" aria-describedby="emailBlock">
           <div id="emailBlock" class="form-text">
             @if (emailInvalidTouched) {
               <span>E-mail inserido inválido.</span>
+            } @else if (emailValid && !isEmailAvailable) {
+              <span>Já existe uma conta associada a este e-mail.</span>
             } @else if (emailValid) {
               <span>E-mail válido.</span>
             }

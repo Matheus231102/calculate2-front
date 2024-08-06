@@ -24,6 +24,10 @@ export class RegisterPageComponent implements OnInit {
 
   public mainForm!: FormGroup;
 
+  protected isEmailAvailable: boolean = false;
+  protected isUsernameAvailable: boolean = false;
+
+
   private passwordValidatorPattern: string = "(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z$*&@#]{8,}";
   private noSpaceValidatorPattern: string = "^[^\\s]+$"
 
@@ -65,7 +69,7 @@ export class RegisterPageComponent implements OnInit {
 
   registerUser() {
     let formValues: RegisterDTO = this.getRegisterFormValues();
-    if (this.mainForm.valid && this.bothPasswordsTheSame) {
+    if (this.mainForm.valid && this.bothPasswordsTheSame && this.isCredentialsAvailable()) {
       this.registerService.registerUser(formValues)
         .subscribe(response => {
           const headers: HttpHeaders = response.headers;
@@ -76,9 +80,7 @@ export class RegisterPageComponent implements OnInit {
             this.localStorageService.setUserToken(jwtToken)
             this.routerPages.toHome()
           }
-
         })
-      console.log(formValues)
     }
   }
 
@@ -89,6 +91,10 @@ export class RegisterPageComponent implements OnInit {
       email: this.mainForm.controls["emailInput"].value,
       password: this.mainForm.controls["passwordInput"].value
     }
+  }
+
+  private isCredentialsAvailable() {
+    return this.isEmailAvailable && this.isUsernameAvailable;
   }
 
   /* EMAIL VALIDATIONS CONDITIONS */
@@ -118,6 +124,17 @@ export class RegisterPageComponent implements OnInit {
   get usernameInvalidTouched() {
     return this.mainForm.controls["usernameInput"].invalid &&
       this.mainForm.controls["usernameInput"].touched;
+  }
+
+  private setUsernameAvailableValue() {
+    let username = this.mainForm.controls["usernameInput"].getRawValue()
+    let isUsernameAvailable: boolean = false;
+    this.registerService.isUsernameAvailable(username).subscribe({
+      next: response => {
+        isUsernameAvailable = <boolean>response.body
+      }
+    })
+    this.isUsernameAvailable = isUsernameAvailable;
   }
 
   /* PASSWORD VALIDATIONS CONDITIONS */

@@ -39,6 +39,7 @@ body {
   --basic-white: #f1f1f1;
   --basic-red: #CA054D;
   --basic-green: #2eda5b;
+  --basic-orange: #fb8500
 }
 
 .red-border {
@@ -48,6 +49,11 @@ body {
 .green-border {
   border: 1px solid var(--basic-green) !important;
 }
+
+.orange-border {
+  border: 1px solid var(--basic-orange) !important;
+}
+
 
 .green-alert {
   margin: 1px;
