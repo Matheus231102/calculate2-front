@@ -8,6 +8,7 @@ import {FoodDTO} from "../../../interfaces/FoodDTO";
 import {FormBuilder, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {ModalBaseComponent} from "../../itens/modal-base/modal-base.component";
 import {UpdateModalComponent} from "../../itens/modal-base/modals/update-modal/update-modal.component";
+import {AddModalComponent} from "../../itens/modal-base/modals/add-modal/add-modal.component";
 
 @Component({
   selector: 'app-alimentos-page',
@@ -18,6 +19,7 @@ import {UpdateModalComponent} from "../../itens/modal-base/modals/update-modal/u
     ReactiveFormsModule,
     ModalBaseComponent,
     UpdateModalComponent,
+    AddModalComponent,
   ],
   templateUrl: './alimentos-page.component.html',
   styleUrl: './alimentos-page.component.css'
@@ -33,17 +35,12 @@ export class AlimentosPageComponent implements OnInit {
   fatsAverage: number = 0;
   priceAverage: number = 0;
 
-  @ViewChild("floatName") floatName!: ElementRef;
-  @ViewChild("floatCalories") floatCalories!: ElementRef;
-  @ViewChild("floatProteins") floatProteins!: ElementRef;
-  @ViewChild("floatCarbohydrates") floatCarbohydrates!: ElementRef;
-  @ViewChild("floatFats") floatFats!: ElementRef;
-  @ViewChild("floatPrice") floatPrice!: ElementRef;
-
   @ViewChild("removeSelectedButton") removeSelectedButton!: ElementRef;
   @ViewChild("updateSelectedButton") updateSelectedButton!: ElementRef;
 
-  @ViewChild(UpdateModalComponent) updateModalComponent!: UpdateModalComponent;
+  @ViewChild("updateModal") updateModalComponent!: UpdateModalComponent;
+  @ViewChild("addModal") addModalComponent!: AddModalComponent;
+
 
   private readonly averageValuesAccuracy: number = 2;
   private selectedItem!: IFood;
@@ -78,23 +75,7 @@ export class AlimentosPageComponent implements OnInit {
       })
   }
 
-  public addFood() {
-    const floatName = this.floatName.nativeElement.value
-    const floatCalories = this.floatCalories.nativeElement.value
-    const floatProteins = this.floatProteins.nativeElement.value
-    const floatCarbohydrates = this.floatCarbohydrates.nativeElement.value
-    const floatFats = this.floatFats.nativeElement.value
-    const floatPrice = this.floatPrice.nativeElement.value
-
-    const foodDTO: FoodDTO = {
-      name: floatName,
-      calories: floatCalories,
-      proteins: floatProteins,
-      carbohydrates: floatCarbohydrates,
-      fats: floatFats,
-      price: floatPrice,
-    }
-
+  public addFood(foodDTO: FoodDTO) {
     this.alimentosService.addFood(foodDTO)
       .subscribe(response => {
         this.updateFoods()
@@ -135,6 +116,10 @@ export class AlimentosPageComponent implements OnInit {
     this.changeSelectedFood();
     this.updateModalComponent.changeFields(this.selectedItem);
     this.updateModalComponent.open()
+  }
+
+  public openAddModal() {
+    this.addModalComponent.open()
   }
 
   /* UPDATE PROPERTIES FUNCTION */

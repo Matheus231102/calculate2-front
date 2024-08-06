@@ -1,11 +1,11 @@
-<div class="modal fade" id="updateModal" tabindex="-1" aria-labelledby="updateModal" aria-hidden="true">
-  <button #openButton data-bs-toggle="modal" data-bs-target="#updateModal" style="display: none"></button>
+<div class="modal fade" id="addModal" tabindex="-1" aria-labelledby="addModal" aria-hidden="true">
+  <button #openButton data-bs-toggle="modal" data-bs-target="#addModal" style="display: none"></button>
 
-  <form [formGroup]="mainForm" (ngSubmit)="updateFood()">
+  <form [formGroup]="mainForm" (ngSubmit)="addFood()">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h1 class="modal-title fs-5 fw-bold" id="exampleAddModal">Atualizar alimento</h1>
+          <h1 class="modal-title fs-5 fw-bold" id="exampleAddModal">Adicionar alimento</h1>
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body modal-add">
@@ -50,8 +50,8 @@
             <button #closeButton type="button" class="btn btn-danger" data-bs-dismiss="modal" style="display: none">
               Fechar
             </button>
-            <button #updateButton type="submit" disabled class="btn btn-primary">
-              Atualizar
+            <button #addButton type="submit" disabled class="btn btn-primary">
+              Adicionar
             </button>
           </div>
         </div>
